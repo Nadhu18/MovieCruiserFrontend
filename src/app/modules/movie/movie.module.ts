@@ -5,19 +5,34 @@ import { HttpClientModule } from '@angular/common/http';
 import { HelloWorldComponent } from './components/hello-world/hello-world.component';
 import { ThumbnailComponent } from './components/thumbnail/thumbnail.component';
 import { MovieService } from './movie.service';
+import { ContainerComponent } from './components/container/container.component';
+import { MovieRouterModule } from './movie-router.module';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { WatchlistComponent } from './components/watchlist/watchlist.component';
+import { TmdbContainerComponent } from './components/tmdb-container/tmdb-container.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
+    MovieRouterModule,
+    MatCardModule,
+    MatButtonModule,
+    MatSnackBarModule
   ],
   declarations: [
     HelloWorldComponent,
-    ThumbnailComponent
+    ThumbnailComponent,
+    ContainerComponent,
+    WatchlistComponent,
+    TmdbContainerComponent
   ],
   exports: [
     HelloWorldComponent,
-    ThumbnailComponent
+    ThumbnailComponent,
+    MovieRouterModule
   ],
   providers: [
     MovieService

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Movie } from '../../movie';
 import { MovieService } from '../../movie.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'movie-thumbnail',
@@ -8,16 +9,18 @@ import { MovieService } from '../../movie.service';
   styleUrls: ['./thumbnail.component.css']
 })
 export class ThumbnailComponent implements OnInit {
+  @Input()
+  movie: Movie;
 
-  movies: Array<Movie>;
+  constructor(private movieService: MovieService, private snackBar: MatSnackBar) { }
 
-  constructor(private movieService: MovieService) { 
-    this.movies = [];
-  }
+  ngOnInit() {  }
 
-  ngOnInit() {
-    this.movieService.getPopularMovies().subscribe((movies) => {
-      this.movies.push(...movies);
+  addTowatchlist() {
+    this.movieService.addMovieTowatchlist(this.movie).subscribe(() => {
+      this.snackBar.open('Movie added to watchlist', '', {
+        duration: 1000
+      });
     });
   }
 
