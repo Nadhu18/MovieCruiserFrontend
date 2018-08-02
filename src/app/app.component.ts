@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router'
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+  movieName = "";
+
+  constructor(private router: Router, private route: ActivatedRoute) {
+  }
+
+  searchMovie(): void {
+    this.router.navigate(['/movies/searchlist/', this.movieName]);
+  }
 }

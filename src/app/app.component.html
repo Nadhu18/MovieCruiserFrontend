@@ -3,5 +3,8 @@
     <button mat-button [routerLink]="['/movies/popular']">Popular Movies</button>
     <button mat-button [routerLink]="['/movies/top_rated']">Top Rated Movies</button>
     <button mat-button [routerLink]="['/movies/watchlist']">Watchlist</button>
+
+    <input matInput id="searchInput" placeholder="Enter Movie" [(ngModel)]="movieName" >
+    <button mat-button (click)="searchMovie()">Search</button>
 </mat-toolbar>
 <router-outlet></router-outlet>

@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { WatchlistComponent } from './components/watchlist/watchlist.component';
 import { TmdbContainerComponent } from './components/tmdb-container/tmdb-container.component';
+import { SearchlistComponent } from './components/searchlist/searchlist.component';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { TmdbContainerComponent } from './components/tmdb-container/tmdb-contain
     ThumbnailComponent,
     ContainerComponent,
     WatchlistComponent,
-    TmdbContainerComponent
+    TmdbContainerComponent,
+    SearchlistComponent
   ],
   exports: [
     HelloWorldComponent,

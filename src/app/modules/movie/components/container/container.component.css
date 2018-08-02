@@ -3,7 +3,7 @@
     width: 90vw;
     display: flex;
     flex-wrap: wrap;
-    flex-direction: column;
+    flex-direction: row;
     height: 100vh;
     overflow-x: auto;
 }
