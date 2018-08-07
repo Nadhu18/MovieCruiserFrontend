@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +14,6 @@ export class AppComponent {
   }
 
   searchMovie(): void {
-    this.router.navigate(['/movies/searchlist/', this.movieName]);
+    this.router.navigate(['/movies/searchlist', this.movieName]);
   }
 }
