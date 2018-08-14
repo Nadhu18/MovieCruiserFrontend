@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
-import { HelloWorldComponent } from './components/hello-world/hello-world.component';
 import { ThumbnailComponent } from './components/thumbnail/thumbnail.component';
 import { MovieService } from './movie.service';
 import { ContainerComponent } from './components/container/container.component';
@@ -24,7 +23,6 @@ import { SearchlistComponent } from './components/searchlist/searchlist.componen
     MatSnackBarModule
   ],
   declarations: [
-    HelloWorldComponent,
     ThumbnailComponent,
     ContainerComponent,
     WatchlistComponent,
@@ -32,7 +30,6 @@ import { SearchlistComponent } from './components/searchlist/searchlist.componen
     SearchlistComponent
   ],
   exports: [
-    HelloWorldComponent,
     ThumbnailComponent,
     MovieRouterModule
   ],
