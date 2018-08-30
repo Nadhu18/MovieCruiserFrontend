@@ -4,6 +4,7 @@ import { ContainerComponent } from './components/container/container.component'
 import { TmdbContainerComponent } from './components/tmdb-container/tmdb-container.component';
 import { WatchlistComponent } from './components/watchlist/watchlist.component';
 import { SearchlistComponent } from './components/searchlist/searchlist.component';
+import { MovieDetailsComponent } from './components/movie-details/movie-details.component';
 
 const movieRoutes: Routes = [
     {
@@ -35,6 +36,10 @@ const movieRoutes: Routes = [
             {
                 path: 'searchlist/:movieName',
                 component: SearchlistComponent
+            },
+            {
+                path: 'movieDetails/:movieID',
+                component: MovieDetailsComponent
             }
         ]
     }

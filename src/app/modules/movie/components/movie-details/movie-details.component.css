@@ -1,0 +1,25 @@
+.movie-image {
+    height: 500px;
+    width: 500px;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    height: 90vh;
+    overflow-x: auto;
+    margin: 0px 50px 0px 50px;
+}
+
+.flex-container>div {
+    max-width: 500px;
+}
+
+.movieTitle {
+    text-align: center;
+}
+
+.contentDiv {
+    margin-left: 20px;
+}

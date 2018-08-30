@@ -1,7 +1,7 @@
 
-<mat-card class="movie-thumbnail">
+<mat-card class="movie-thumbnail" (click)="getMovieDetails()" style="cursor: pointer;">
     <mat-card-header>
-        <mat-card-title>{{movie?.title}}</mat-card-title>
+        <mat-card-title><h3>{{movie?.title}}</h3></mat-card-title>
         <mat-card-subtitle>{{movie?.released_date}}</mat-card-subtitle>
     </mat-card-header>
     
@@ -9,7 +9,7 @@
 
     <mat-card-content class="movie-overview">{{movie?.overview}}</mat-card-content>
 
-    <mat-card-actions class="movie-action">
+    <!-- <mat-card-actions class="movie-action">
         <button mat-button color="primary" (click)="addTowatchlist()">Add to Watchlist</button>
-    </mat-card-actions>
+    </mat-card-actions> -->
 </mat-card>

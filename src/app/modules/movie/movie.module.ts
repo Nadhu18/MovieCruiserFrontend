@@ -12,6 +12,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { WatchlistComponent } from './components/watchlist/watchlist.component';
 import { TmdbContainerComponent } from './components/tmdb-container/tmdb-container.component';
 import { SearchlistComponent } from './components/searchlist/searchlist.component';
+import { MovieDetailsComponent } from './components/movie-details/movie-details.component';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { SearchlistComponent } from './components/searchlist/searchlist.componen
     ContainerComponent,
     WatchlistComponent,
     TmdbContainerComponent,
-    SearchlistComponent
+    SearchlistComponent,
+    MovieDetailsComponent
   ],
   exports: [
     ThumbnailComponent,

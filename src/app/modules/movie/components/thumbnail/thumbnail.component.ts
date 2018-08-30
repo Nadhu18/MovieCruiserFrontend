@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Movie } from '../../movie';
 import { MovieService } from '../../movie.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'movie-thumbnail',
@@ -12,7 +13,7 @@ export class ThumbnailComponent implements OnInit {
   @Input()
   movie: Movie;
 
-  constructor(private movieService: MovieService, private snackBar: MatSnackBar) { }
+  constructor(private movieService: MovieService, private snackBar: MatSnackBar, private router: Router) { }
 
   ngOnInit() {  }
 
@@ -22,6 +23,10 @@ export class ThumbnailComponent implements OnInit {
         duration: 1000
       });
     });
+  }
+
+  getMovieDetails(): void {
+    this.router.navigate(['/movies/movieDetails', this.movie.id]);
   }
 
 }

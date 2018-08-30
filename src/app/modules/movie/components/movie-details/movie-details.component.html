@@ -1,0 +1,23 @@
+<div class="flex-container" *ngIf="movie">
+  <div>
+    <img class="movie-image" [src]="movie.poster_path" [alt]="movie.title">
+  </div>
+
+  <div class="contentDiv">
+    <h1 class="movieTitle">{{movie?.title}}</h1>
+    <h3>Overview: </h3>{{movie.overview}}<br/><br/>
+    <h3>Release Date: <small>{{movie.release_date}}</small></h3>
+    <h3>Vote Average: <small>{{movie.vote_average}}</small></h3>
+    <h3>Vote Count: <small>{{movie.vote_count}}</small></h3><br/><br/>
+
+    <button *ngIf="!movie.isWatchlisted" (click)="addMovieToWatchlist()" class="btn btn-primary">
+      Add to watch list
+    </button>
+    <button *ngIf="movie.isWatchlisted" (click)="deleteMovieFromWatchlist()" class="btn btn-danger">
+      Remove from watchlist
+    </button>
+  </div>
+
+
+
+</div>
