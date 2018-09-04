@@ -10,14 +10,19 @@
     <h3>Vote Average: <small>{{movie.vote_average}}</small></h3>
     <h3>Vote Count: <small>{{movie.vote_count}}</small></h3><br/><br/>
 
-    <button *ngIf="!movie.isWatchlisted" (click)="addMovieToWatchlist()" class="btn btn-primary">
+    <button *ngIf="!movie.isWatchlisted" (click)="addMovieToWatchlist()" id="addToWatchlistButton" class="btn btn-primary">
       Add to watch list
     </button>
-    <button *ngIf="movie.isWatchlisted" (click)="deleteMovieFromWatchlist()" class="btn btn-danger">
+    <button *ngIf="movie.isWatchlisted" (click)="deleteMovieFromWatchlist()" id="removeFromWatchlistButton" class="btn btn-danger">
       Remove from watchlist
     </button>
+    <br/><br/>
+
+    <div *ngIf="movie.isWatchlisted">
+      <textarea id="commentField" rows="5" cols="50" [(ngModel)]="comment"></textarea><br/>
+      <button id="updateCommentButton" (click)="addOrupdateComment()" class="btn btn-primary">
+        Comment
+      </button>
+    </div>
   </div>
-
-
-
 </div>

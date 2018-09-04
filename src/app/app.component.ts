@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,10 +10,12 @@ export class AppComponent {
   title = 'app';
   movieName = "";
 
-  constructor(private router: Router) {
-  }
+  constructor(private router: Router) {}
 
+  //will navigate you to search ist page showing the matched movies
   searchMovie(): void {
-    this.router.navigate(['/movies/searchlist', this.movieName]);
+    if (this.movieName) {
+      this.router.navigate(['/movies/searchlist', this.movieName]);
+    }
   }
 }

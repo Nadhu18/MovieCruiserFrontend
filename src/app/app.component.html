@@ -11,12 +11,12 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li><button mat-button [routerLink]="['/movies/popular']">Popular Movies</button></li>
-                <li><button mat-button [routerLink]="['/movies/top_rated']">Top Rated Movies</button></li>
-                <li><button mat-button [routerLink]="['/movies/watchlist']">Watchlist</button></li>
+                <li><button id="popularButton" mat-button [routerLink]="['/movies/popular']">Popular Movies</button></li>
+                <li><button id="topRatedButton" mat-button [routerLink]="['/movies/top_rated']">Top Rated Movies</button></li>
+                <li><button id="watchlistButton" mat-button [routerLink]="['/movies/watchlist']">Watchlist</button></li>
 
-                <li><input style="color:black" id="searchInput" placeholder="Enter Movie" [(ngModel)]="movieName"></li>
-                <li><button mat-button (click)="searchMovie()">Search</button></li>
+                <li><input style="color:black" id="movieSearchInput" placeholder="Enter Movie" [(ngModel)]="movieName"></li>
+                <li><button id="movieSearchButton" mat-button (click)="searchMovie()">Search</button></li>
             </ul>
         </div>
     </div>

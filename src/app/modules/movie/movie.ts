@@ -5,4 +5,5 @@ export interface Movie {
     overview: string;
     released_date: string;
     isWatchlisted: boolean;
+    comments: string;
 }

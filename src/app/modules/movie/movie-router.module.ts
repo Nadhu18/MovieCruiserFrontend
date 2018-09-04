@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ContainerComponent } from './components/container/container.component'
 import { TmdbContainerComponent } from './components/tmdb-container/tmdb-container.component';
 import { WatchlistComponent } from './components/watchlist/watchlist.component';
 import { SearchlistComponent } from './components/searchlist/searchlist.component';
 import { MovieDetailsComponent } from './components/movie-details/movie-details.component';
 
+//defines all the routes for the application
 const movieRoutes: Routes = [
     {
         path: 'movies',

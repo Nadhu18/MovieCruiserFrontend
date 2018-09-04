@@ -14,12 +14,15 @@ export class TmdbContainerComponent implements OnInit {
 
   constructor(private movieService: MovieService, private route: ActivatedRoute) {
     this.movies = [];
+
+    //getting the movieType from the url
     this.route.data.subscribe((data) => {
       this.movieType = data.movieType
     });
   }
 
   ngOnInit() {
+    //Getting all the movies with respect to the movieType and assigning to movies variable
     this.movieService.getMovies(this.movieType).subscribe((movies) => {
       this.movies.push(...movies);
     });

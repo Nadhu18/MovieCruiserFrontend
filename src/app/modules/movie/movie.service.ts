@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { Movie } from './movie';
 import { Observable } from 'rxjs';
 import { retry } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -17,17 +18,11 @@ export class MovieService {
   searchlistEndpoint: string;
   movieDetailsEndpoint: string;
 
-  constructor(private http: HttpClient) {
-    this.apiKey = "api_key=e2101a3fd6939be53919aed858fac894";
-    this.tmdbEndPoint = "https://api.themoviedb.org/3/movie";
-    this.imagePrefix = "https://image.tmdb.org/t/p/w500/";
-    this.watchlistEndpoint = "http://localhost:49954/api/movie";
-    this.searchlistEndpoint = "https://api.themoviedb.org/3/search/movie";
-    this.movieDetailsEndpoint = "https://api.themoviedb.org/3/movie";
-  }
+  constructor(private http: HttpClient) {}
 
+  //gets all the details of a particular movie from tmdb
   getMovieDetails(movieID: number): Observable<Movie> {
-    const endpoint = `${this.movieDetailsEndpoint}/${movieID}?${this.apiKey}`;
+    const endpoint = `${environment.movieDetailsEndpoint}/${movieID}?${environment.apiKey}`;
 
     return this.http.get(endpoint).pipe(
       retry(3),
@@ -35,8 +30,9 @@ export class MovieService {
     );
   }
 
+  //gets all the movies that are matching the input from tmdb
   getSearchlistMovies(name: string, page: number = 1): Observable<Array<Movie>> {
-    const endpoint = `${this.searchlistEndpoint}?${this.apiKey}&query=${name}&page=${page}&include_adult=false`;
+    const endpoint = `${environment.searchlistEndpoint}?${environment.apiKey}&query=${name}&page=${page}&include_adult=false`;
 
     return this.http.get(endpoint).pipe(
       retry(3),
@@ -45,8 +41,10 @@ export class MovieService {
     );
   }
 
+  //gets list of movies from the tmbd based the type we are passing
   getMovies(type: string, page: number = 1): Observable<Array<Movie>> {
-    const endpoint = `${this.tmdbEndPoint}/${type}?${this.apiKey}&page=${page}`;
+    const endpoint = `${environment.tmdbEndPoint}/${type}?${environment.apiKey}&page=${page}`;
+
     return this.http.get(endpoint).pipe(
       retry(3),
       map(this.pickMovieResponse),
@@ -54,32 +52,43 @@ export class MovieService {
     );
   }
 
+  //appends the image URL and returns the list of movies
   transformPosterPath(movies): Array<Movie> {
     return movies.map(movie => {
-      movie.poster_path = `${this.imagePrefix}${movie.poster_path}`;
+      movie.poster_path = `${environment.imagePrefix}${movie.poster_path}`;
       return movie;
     });
   }
 
+  //appends the image URL and returns the movie
   transformMoviePosterPath(movie): Movie {
-      movie.poster_path = `${this.imagePrefix}${movie.poster_path}`;
+      movie.poster_path = `${environment.imagePrefix}${movie.poster_path}`;
       return movie;
   }
 
+  //returns the results from the response
   pickMovieResponse(response) {
     return response['results'];
   }
 
+  //method will add the movie to watchlist and saved to the database
   addMovieTowatchlist(movie: Movie) {
-    return this.http.post(this.watchlistEndpoint, movie);
+    return this.http.post(environment.watchlistEndpoint, movie);
   }
 
+  //returns all the movies from the database
   getWatchListedMovies(): Observable<Array<Movie>> {
-    return this.http.get<Array<Movie>>(this.watchlistEndpoint);
+    return this.http.get<Array<Movie>>(environment.watchlistEndpoint);
   }
 
+  //removes the particular movie from the database
   deleteMovieFromWatchlist(movieID: number) {
-    return this.http.delete(`${this.watchlistEndpoint}/${movieID}`);
+    return this.http.delete(`${environment.watchlistEndpoint}/${movieID}`);
+  }
+
+  //Updates the comment of the particular movie in the database
+  addOrupdateComment(movie: Movie) {
+    return this.http.put(`${environment.watchlistEndpoint}/${movie.id}`, movie);
   }
 
 }

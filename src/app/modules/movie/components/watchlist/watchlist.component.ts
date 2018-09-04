@@ -15,6 +15,7 @@ export class WatchlistComponent implements OnInit {
   }
 
   ngOnInit() {
+    //on initial load we will be getting all the watchlisted movies from service and assigning to movies variable
     this.movieService.getWatchListedMovies().subscribe((movies) => {
       this.movies.push(...movies);
     });

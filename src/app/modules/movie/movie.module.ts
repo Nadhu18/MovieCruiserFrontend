@@ -13,6 +13,7 @@ import { WatchlistComponent } from './components/watchlist/watchlist.component';
 import { TmdbContainerComponent } from './components/tmdb-container/tmdb-container.component';
 import { SearchlistComponent } from './components/searchlist/searchlist.component';
 import { MovieDetailsComponent } from './components/movie-details/movie-details.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { MovieDetailsComponent } from './components/movie-details/movie-details.
     MovieRouterModule,
     MatCardModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    FormsModule
   ],
   declarations: [
     ThumbnailComponent,
@@ -33,7 +35,8 @@ import { MovieDetailsComponent } from './components/movie-details/movie-details.
   ],
   exports: [
     ThumbnailComponent,
-    MovieRouterModule
+    MovieRouterModule,
+    FormsModule
   ],
   providers: [
     MovieService
