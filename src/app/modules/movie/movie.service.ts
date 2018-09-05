@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Movie } from './movie';
-import { Observable } from 'rxjs';
-import { retry } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { retry, catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -18,7 +18,7 @@ export class MovieService {
   searchlistEndpoint: string;
   movieDetailsEndpoint: string;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   //gets all the details of a particular movie from tmdb
   getMovieDetails(movieID: number): Observable<Movie> {
@@ -26,6 +26,7 @@ export class MovieService {
 
     return this.http.get(endpoint).pipe(
       retry(3),
+      catchError(this.handleError),
       map(this.transformMoviePosterPath.bind(this))
     );
   }
@@ -36,6 +37,7 @@ export class MovieService {
 
     return this.http.get(endpoint).pipe(
       retry(3),
+      catchError(this.handleError),
       map(this.pickMovieResponse),
       map(this.transformPosterPath.bind(this))
     );
@@ -47,6 +49,7 @@ export class MovieService {
 
     return this.http.get(endpoint).pipe(
       retry(3),
+      catchError(this.handleError),
       map(this.pickMovieResponse),
       map(this.transformPosterPath.bind(this))
     );
@@ -62,8 +65,8 @@ export class MovieService {
 
   //appends the image URL and returns the movie
   transformMoviePosterPath(movie): Movie {
-      movie.poster_path = `${environment.imagePrefix}${movie.poster_path}`;
-      return movie;
+    movie.poster_path = `${environment.imagePrefix}${movie.poster_path}`;
+    return movie;
   }
 
   //returns the results from the response
@@ -73,22 +76,46 @@ export class MovieService {
 
   //method will add the movie to watchlist and saved to the database
   addMovieTowatchlist(movie: Movie) {
-    return this.http.post(environment.watchlistEndpoint, movie);
+    return this.http.post(environment.watchlistEndpoint, movie).pipe(
+      catchError(this.handleError)
+    );
   }
 
   //returns all the movies from the database
   getWatchListedMovies(): Observable<Array<Movie>> {
-    return this.http.get<Array<Movie>>(environment.watchlistEndpoint);
+    return this.http.get<Array<Movie>>(environment.watchlistEndpoint).pipe(
+      catchError(this.handleError)
+    );
   }
 
   //removes the particular movie from the database
   deleteMovieFromWatchlist(movieID: number) {
-    return this.http.delete(`${environment.watchlistEndpoint}/${movieID}`);
+    return this.http.delete(`${environment.watchlistEndpoint}/${movieID}`).pipe(
+      catchError(this.handleError)
+    );
   }
 
   //Updates the comment of the particular movie in the database
   addOrupdateComment(movie: Movie) {
-    return this.http.put(`${environment.watchlistEndpoint}/${movie.id}`, movie);
+    return this.http.put(`${environment.watchlistEndpoint}/${movie.id}`, movie).pipe(
+      catchError(this.handleError)
+    );
   }
+
+  handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred.
+      console.error('An error occurred in the client side', error.error.message);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${error.error}`);
+    }
+    // return an observable with a user-facing error message
+    return throwError(
+      'Something bad happened; please try again later.');
+  };
 
 }

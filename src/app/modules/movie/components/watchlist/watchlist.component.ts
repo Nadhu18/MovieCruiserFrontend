@@ -18,7 +18,7 @@ export class WatchlistComponent implements OnInit {
     //on initial load we will be getting all the watchlisted movies from service and assigning to movies variable
     this.movieService.getWatchListedMovies().subscribe((movies) => {
       this.movies.push(...movies);
-    });
+    }, error => console.error("An Error has occured in Watchlist component while getting movies.", error));
   }
 
 }

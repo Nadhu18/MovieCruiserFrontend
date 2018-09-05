@@ -25,7 +25,7 @@ export class TmdbContainerComponent implements OnInit {
     //Getting all the movies with respect to the movieType and assigning to movies variable
     this.movieService.getMovies(this.movieType).subscribe((movies) => {
       this.movies.push(...movies);
-    });
+    }, error => console.error("An Error has occured in TMDB component while getting movies.", error));
   }
 
 }

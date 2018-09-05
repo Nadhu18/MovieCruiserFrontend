@@ -27,7 +27,7 @@ export class MovieDetailsComponent implements OnInit {
     //Calling the service to get the details of a particular movie
     this.movieService.getMovieDetails(this.movieID).subscribe(movie => {
       this.movie = movie;
-    });
+    }, error => console.error("An Error has occured in movie details component OnInit while getting movies.", error));
 
     if (this.movieID) {
       //getting the watchlisted movies from database and modifying the local movies comments
@@ -39,7 +39,7 @@ export class MovieDetailsComponent implements OnInit {
             this.comment = watchlistMovie.comments;
           }
         });
-      });
+      }, error => console.error("An Error has occured in movie details component OnInit while getting watchlisted movies.", error));
     }
   }
 
@@ -50,7 +50,7 @@ export class MovieDetailsComponent implements OnInit {
       this.snackBar.open('Movie Added To Watchlist', '', {
         duration: 1000
       });
-    });
+    }, error => console.error("An Error has occured in movie details component while adding movie to watchlist.", error));
   }
 
   //Will call service to remove the movie from database and watchlist
@@ -60,7 +60,7 @@ export class MovieDetailsComponent implements OnInit {
       this.snackBar.open('Movie removed from watchlist', '', {
         duration: 1000
       });
-    });
+    }, error => console.error("An Error has occured in movie details component while removing movie from the watchlist.", error));
   }
 
   //Will call service to update the comment in the database
@@ -70,7 +70,7 @@ export class MovieDetailsComponent implements OnInit {
       this.snackBar.open('Comment Updated', '', {
         duration: 1000
       });
-    });
+    }, error => console.error("An Error has occured in movie details component while updating the movie comment.", error));
   }
 
 }
