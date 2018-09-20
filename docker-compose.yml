@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  web:
+    image: "moviecruiser"
+    ports:
+      - "8089:80"
+    links:
+      - db
+    environment:
+      SQLSERVER_MOVIE: "Data source=db;Initial catalog=MovieDb;User id=sa;Password=P@ssw0rd"
+  ui:
+    image: "moviecruiser-ui"
+    ports:
+      - "4200:4200"
+  db:
+    image: "microsoft/mssql-server-windows-express"
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "P@ssw0rd"
+      ACCEPT_EULA: "Y"
