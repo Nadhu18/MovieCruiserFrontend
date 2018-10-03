@@ -4,44 +4,57 @@ import { TmdbContainerComponent } from './components/tmdb-container/tmdb-contain
 import { WatchlistComponent } from './components/watchlist/watchlist.component';
 import { SearchlistComponent } from './components/searchlist/searchlist.component';
 import { MovieDetailsComponent } from './components/movie-details/movie-details.component';
+import { LoginComponent } from './components/login/login.component';
+import { AuthGuardService } from './auth-guard.service';
 
 //defines all the routes for the application
 const movieRoutes: Routes = [
+    {
+        path: 'login',
+        component: LoginComponent
+    },
     {
         path: 'movies',
         children: [
             {
                 path: '',
                 redirectTo: '/movies/popular',
-                pathMatch: 'full'
+                pathMatch: 'full',
+                canActivate: [AuthGuardService]
             },
             {
                 path: 'popular',
                 component: TmdbContainerComponent,
                 data: {
                     movieType: 'popular'
-                }
+                },
+                canActivate: [AuthGuardService]
             },
             {
                 path: 'top_rated',
                 component: TmdbContainerComponent,
                 data: {
                     movieType: 'top_rated'
-                }
+                },
+                canActivate: [AuthGuardService]
             },
             {
                 path: 'watchlist',
-                component: WatchlistComponent
+                component: WatchlistComponent,
+                canActivate: [AuthGuardService]
             },
             {
                 path: 'searchlist/:movieName',
-                component: SearchlistComponent
+                component: SearchlistComponent,
+                canActivate: [AuthGuardService]
             },
             {
                 path: 'movieDetails/:movieID',
-                component: MovieDetailsComponent
+                component: MovieDetailsComponent,
+                canActivate: [AuthGuardService]
             }
-        ]
+        ],
+        canActivate: [AuthGuardService]
     }
 ];
 
@@ -51,7 +64,8 @@ const movieRoutes: Routes = [
     ],
     exports: [
         RouterModule
-    ]
+    ],
+    providers: [AuthGuardService]
 })
 
 export class MovieRouterModule {}

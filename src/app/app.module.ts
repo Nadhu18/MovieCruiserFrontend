@@ -13,12 +13,12 @@ import { AppComponent } from './app.component';
 const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: 'movies',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
     path: '**',//wildcard route if user enters wrong URL, he will be navigated to default page
-    redirectTo: 'movies'
+    redirectTo: 'login'
   }
 ];
 

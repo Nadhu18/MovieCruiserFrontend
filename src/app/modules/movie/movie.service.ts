@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Movie } from './movie';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,17 @@ export class MovieService {
   searchlistEndpoint: string;
   movieDetailsEndpoint: string;
 
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient, private authService: AuthService) { }
+
+  getHttpHeaders(): HttpHeaders {
+    let headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + localStorage.getItem("jwt_token"),
+      'Content-Type': 'application/json',
+      'userId': this.authService.getUserId()
+    });
+    return headers;
+  }
 
   //gets all the details of a particular movie from tmdb
   getMovieDetails(movieID: number): Observable<Movie> {
@@ -58,6 +69,8 @@ export class MovieService {
   //appends the image URL and returns the list of movies
   transformPosterPath(movies): Array<Movie> {
     return movies.map(movie => {
+      movie.movieId = movie.id
+      movie.id = "";
       movie.poster_path = `${environment.imagePrefix}${movie.poster_path}`;
       return movie;
     });
@@ -65,6 +78,8 @@ export class MovieService {
 
   //appends the image URL and returns the movie
   transformMoviePosterPath(movie): Movie {
+    movie.movieId = movie.id
+    movie.id = "";
     movie.poster_path = `${environment.imagePrefix}${movie.poster_path}`;
     return movie;
   }
@@ -76,28 +91,34 @@ export class MovieService {
 
   //method will add the movie to watchlist and saved to the database
   addMovieTowatchlist(movie: Movie) {
-    return this.http.post(environment.watchlistEndpoint, movie).pipe(
+    delete movie.id;
+    let headers = this.getHttpHeaders();
+    return this.http.post(environment.watchlistEndpoint, movie, { headers: headers }).pipe(
       catchError(this.handleError)
     );
   }
 
   //returns all the movies from the database
   getWatchListedMovies(): Observable<Array<Movie>> {
-    return this.http.get<Array<Movie>>(environment.watchlistEndpoint).pipe(
+    let headers = this.getHttpHeaders();
+    return this.http.get<Array<Movie>>(environment.watchlistEndpoint, { headers: headers }).pipe(
       catchError(this.handleError)
     );
   }
 
   //removes the particular movie from the database
   deleteMovieFromWatchlist(movieID: number) {
-    return this.http.delete(`${environment.watchlistEndpoint}/${movieID}`).pipe(
+    let headers = this.getHttpHeaders();
+    return this.http.delete(`${environment.watchlistEndpoint}/${movieID}`, { headers: headers }).pipe(
       catchError(this.handleError)
     );
   }
 
   //Updates the comment of the particular movie in the database
   addOrupdateComment(movie: Movie) {
-    return this.http.put(`${environment.watchlistEndpoint}/${movie.id}`, movie).pipe(
+    movie.userId = this.authService.getUserId();
+    let headers = this.getHttpHeaders();
+    return this.http.put(`${environment.watchlistEndpoint}/${movie.id}`, movie, { headers: headers }).pipe(
       catchError(this.handleError)
     );
   }

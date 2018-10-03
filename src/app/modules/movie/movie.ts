@@ -1,4 +1,5 @@
 export interface Movie {
+    movieId: number;
     id: number;
     title: string;
     poster_path: string;
@@ -6,4 +7,5 @@ export interface Movie {
     released_date: string;
     isWatchlisted: boolean;
     comments: string;
+    userId: string;
 }

@@ -8,12 +8,14 @@ import { ContainerComponent } from './components/container/container.component';
 import { MovieRouterModule } from './movie-router.module';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { WatchlistComponent } from './components/watchlist/watchlist.component';
 import { TmdbContainerComponent } from './components/tmdb-container/tmdb-container.component';
 import { SearchlistComponent } from './components/searchlist/searchlist.component';
 import { MovieDetailsComponent } from './components/movie-details/movie-details.component';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   imports: [
@@ -22,6 +24,7 @@ import { FormsModule } from '@angular/forms';
     MovieRouterModule,
     MatCardModule,
     MatButtonModule,
+    MatInputModule,
     MatSnackBarModule,
     FormsModule
   ],
@@ -31,7 +34,8 @@ import { FormsModule } from '@angular/forms';
     WatchlistComponent,
     TmdbContainerComponent,
     SearchlistComponent,
-    MovieDetailsComponent
+    MovieDetailsComponent,
+    LoginComponent
   ],
   exports: [
     ThumbnailComponent,

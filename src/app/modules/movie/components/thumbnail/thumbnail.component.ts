@@ -28,7 +28,7 @@ export class ThumbnailComponent implements OnInit {
 
   //Will navigate to movieDetails component
   getMovieDetails(): void {
-    this.router.navigate(['/movies/movieDetails', this.movie.id]);
+    this.router.navigate(['/movies/movieDetails', this.movie.movieId]);
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Movie } from '../../movie';
 import { MovieService } from '../../movie.service';
+import { AuthService } from '../../auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -15,7 +16,7 @@ export class MovieDetailsComponent implements OnInit {
   movieID: number;
   comment: string;
 
-  constructor(private route: ActivatedRoute, private movieService: MovieService, private snackBar: MatSnackBar) {
+  constructor(private route: ActivatedRoute, private movieService: MovieService, private snackBar: MatSnackBar, private authServer: AuthService) {
     this.comment = "";
     //Getting movieID from the URL
     this.route.params.subscribe(params => {
@@ -30,15 +31,19 @@ export class MovieDetailsComponent implements OnInit {
     }, error => console.error("An Error has occured in movie details component OnInit while getting movies.", error));
 
     if (this.movieID) {
+      let userId = this.authServer.getUserId();
       //getting the watchlisted movies from database and modifying the local movies comments
       this.movieService.getWatchListedMovies().subscribe(watchlistMovies => {
-        watchlistMovies.forEach(watchlistMovie => {
-          if (watchlistMovie.id == this.movieID) {
-            this.movie.isWatchlisted = true;
-            this.movie.comments = watchlistMovie.comments;
-            this.comment = watchlistMovie.comments;
-          }
-        });
+        if (watchlistMovies && watchlistMovies.length > 0) {
+          watchlistMovies.forEach(watchlistMovie => {
+            if (watchlistMovie.movieId == this.movieID && watchlistMovie.userId == userId) {
+              this.movie.isWatchlisted = true;
+              this.movie.id = watchlistMovie.id;
+              this.movie.comments = watchlistMovie.comments;
+              this.comment = watchlistMovie.comments;
+            }
+          });
+        }
       }, error => console.error("An Error has occured in movie details component OnInit while getting watchlisted movies.", error));
     }
   }
@@ -56,7 +61,7 @@ export class MovieDetailsComponent implements OnInit {
   //Will call service to remove the movie from database and watchlist
   deleteMovieFromWatchlist() {
     this.movie.isWatchlisted = false;
-    this.movieService.deleteMovieFromWatchlist(this.movieID).subscribe(() => {
+    this.movieService.deleteMovieFromWatchlist(this.movie.id).subscribe(() => {
       this.snackBar.open('Movie removed from watchlist', '', {
         duration: 1000
       });
