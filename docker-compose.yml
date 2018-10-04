@@ -1,3 +1,5 @@
+#please move this file to the parent where backend and frontend is available before running the docker-compose
+
 version: '3'
 
 services:
