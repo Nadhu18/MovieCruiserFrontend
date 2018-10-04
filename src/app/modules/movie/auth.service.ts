@@ -16,28 +16,33 @@ export class AuthService {
 
   private serviceURL = 'http://localhost:8081/auth';
   userId: string = "";
-  private headers = new Headers();
 
+  //will return the token stored in localstorage 
   getToken(): string {
     return localStorage.getItem(TOKEN_NAME);
   }
 
+  //will set the token into localstorage
   setToken(token: string) {
     localStorage.setItem(TOKEN_NAME, token);
   }
 
+  //method to set the userdId
   setUserId(id: string) {
     this.userId = id;
   }
 
+  //method to get the userId
   getUserId() {
     return this.userId;
   }
 
+  //will delete the token from localstorage during logout
   deleteToken() {
     localStorage.removeItem(TOKEN_NAME);
   }
 
+  //will return the expiration date and time of token
   getTokenExpirationDate(token: string): Date {
     const decoded = jwt_decode(token);
     if (decoded.exp === undefined)
@@ -47,6 +52,7 @@ export class AuthService {
     return date;
   }
 
+  //will return true if the token is expired
   isTokenExpired(token?: string): boolean {
     if (!token) {
       token = this.getToken();
@@ -60,6 +66,7 @@ export class AuthService {
     return !(date.valueOf() > new Date().valueOf());
   }
 
+  //will trigger the AuthService to validate the login details
   login(userId: string, password: string): Observable<Object> {
     let user: User = { userId: userId, password: password };
     return this.http.post(`${this.serviceURL}/login/`, user).pipe(
@@ -67,6 +74,7 @@ export class AuthService {
     );
   }
 
+  //will trigger the AuthService to register the user into DB
   register(userId: string, password: string, firstName: string, lastName: string) {
     let user: User = { userId: userId, password: password, firstName: firstName, lastName: lastName };
     return this.http.post(`${this.serviceURL}/register/`, user).pipe(

@@ -2,7 +2,8 @@ version: '3'
 
 services:
   auth:
-    image: "movicruiser-auth"
+    build:
+      context: ./movieCruiserByRohith/AuthSever
     ports:
       - "8081:80"
     depends_on:
@@ -10,7 +11,8 @@ services:
     environment:
       SQLSERVER_AUTH: "Data source=db;Initial catalog=UserDb;User id=sa;Password=P@ssw0rd"
   web:
-    image: "moviecruiser-secured"
+    build:
+      context: ./movieCruiserByRohith/movieCruiserByRohith
     ports:
       - "8089:80"
     links:
@@ -19,7 +21,8 @@ services:
     environment:
       SQLSERVER_MOVIE: "Data source=db;Initial catalog=MovieDb;User id=sa;Password=P@ssw0rd"
   ui:
-    image: "moviecruiser-ui"
+    build:
+      context: ./movie-cruiser-capsule-frontend
     ports:
       - "4200:4200"
   db:

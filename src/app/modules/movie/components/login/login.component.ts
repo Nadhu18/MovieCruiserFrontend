@@ -25,7 +25,9 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
+  //method to trigger the login functionality
   login(): void {
+    // will set error message when the one of the field is empty
     if (!this.userid || !this.password) {
       this.invalidCred = "*All fields are mandotory";
     }
@@ -37,16 +39,20 @@ export class LoginComponent implements OnInit {
         this.authService.setUserId(this.userid);
         this.router.navigate(['/movies']);
       }, error => {
+        //triggered when login fails
         this.invalidCred = "*Invalid Credentials";
         console.error("An Error has occured while logging in.", error);
       });
     }
   }
 
+  //triggers the registration functionality
   register() {
+    //defines the error message if any field is empty
     if(!this.rUserid || !this.rFirstName || !this.rLastName || !this.rPassword || !this.rConfirmPassword){
       this.invalidReg = "*All fields are mandotory";
     }
+    //defines error message if the passwords doesnot match
     else if(this.rPassword != this.rConfirmPassword) {
       this.invalidReg = "*Password doest not match";
     }

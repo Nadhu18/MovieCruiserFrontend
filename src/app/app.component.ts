@@ -20,10 +20,12 @@ export class AppComponent {
     }
   }
 
+  //this is written to hide the navbar in login page
   showNavBar() {
     return !this.authService.isTokenExpired();
   }
 
+  //to logout the user by clearing token
   logOut() {
     this.authService.deleteToken();
     this.router.navigate(['/login']);

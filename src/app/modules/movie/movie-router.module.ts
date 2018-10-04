@@ -20,7 +20,7 @@ const movieRoutes: Routes = [
                 path: '',
                 redirectTo: '/movies/popular',
                 pathMatch: 'full',
-                canActivate: [AuthGuardService]
+                canActivate: [AuthGuardService] //restricts from navigating without login
             },
             {
                 path: 'popular',

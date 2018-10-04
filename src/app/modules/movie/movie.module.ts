@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-
 import { ThumbnailComponent } from './components/thumbnail/thumbnail.component';
 import { MovieService } from './movie.service';
 import { ContainerComponent } from './components/container/container.component';
