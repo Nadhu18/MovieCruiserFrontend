@@ -19,14 +19,14 @@
                   <tr>
                     <td>
                       <mat-form-field class="full-width">
-                        <input matInput placeholder="UserId" [(ngModel)]="userid" name="userid" required>
+                        <input matInput placeholder="UserId" [(ngModel)]="userid" name="userid" id="userid" required>
                       </mat-form-field>
                     </td>
                   </tr>
                   <tr>
                     <td>
                       <mat-form-field class="full-width">
-                        <input matInput placeholder="Password" [(ngModel)]="password" type="password" name="password" required>
+                        <input matInput placeholder="Password" [(ngModel)]="password" type="password" name="password" id="password" required>
                       </mat-form-field>
                     </td>
                   </tr>
@@ -34,7 +34,7 @@
               </form>
             </mat-card-content>
             <mat-card-actions>
-              <button mat-raised-button (click)="login()" color="primary">Login</button>
+              <button mat-raised-button (click)="login()" color="primary" id="loginButton">Login</button>
             </mat-card-actions>
           </mat-card>
         </div>
@@ -59,35 +59,35 @@
                   <tr>
                     <td>
                       <mat-form-field class="full-width">
-                        <input matInput placeholder="UserId" [(ngModel)]="rUserid" name="rUserid" required>
+                        <input matInput placeholder="UserId" [(ngModel)]="rUserid" name="rUserid" id="rUserid" required>
                       </mat-form-field>
                     </td>
                   </tr>
                   <tr>
                     <td>
                       <mat-form-field class="full-width">
-                        <input matInput placeholder="FirstName" [(ngModel)]="rFirstName" name="rFirstName" required>
+                        <input matInput placeholder="FirstName" [(ngModel)]="rFirstName" name="rFirstName" id="rFirstName" required>
                       </mat-form-field>
                     </td>
                   </tr>
                   <tr>
                       <td>
                         <mat-form-field class="full-width">
-                          <input matInput placeholder="LastName" [(ngModel)]="rLastName" name="rLastName" required>
+                          <input matInput placeholder="LastName" [(ngModel)]="rLastName" name="rLastName" id="rLastName" required>
                         </mat-form-field>
                       </td>
                     </tr>
                   <tr>
                     <td>
                       <mat-form-field class="full-width">
-                        <input matInput placeholder="Password" [(ngModel)]="rPassword" type="password" name="rPassword" required>
+                        <input matInput placeholder="Password" [(ngModel)]="rPassword" type="password" name="rPassword" id="rPassword" required>
                       </mat-form-field>
                     </td>
                   </tr>
                   <tr>
                     <td>
                       <mat-form-field class="full-width">
-                        <input matInput placeholder="Confirm Password" [(ngModel)]="rConfirmPassword" type="password" name="rConfirmPassword" required>
+                        <input matInput placeholder="Confirm Password" [(ngModel)]="rConfirmPassword" type="password" name="rConfirmPassword" id="rConfirmPassword" required>
                       </mat-form-field>
                     </td>
                   </tr>
@@ -95,7 +95,7 @@
               </form>
             </mat-card-content>
             <mat-card-actions>
-              <button mat-raised-button (click)="register()" color="primary">Register</button>
+              <button mat-raised-button (click)="register()" color="primary" id="registerButton">Register</button>
             </mat-card-actions>
           </mat-card>
         </div>

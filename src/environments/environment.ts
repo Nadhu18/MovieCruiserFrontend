@@ -1,13 +1,13 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build ---prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-
+//watchlistEndpoint: "http://localhost:8089/api/movie",
 export const environment = {
   production: false,
   apiKey: "api_key=e2101a3fd6939be53919aed858fac894",
   tmdbEndPoint: "https://api.themoviedb.org/3/movie",
   imagePrefix: "https://image.tmdb.org/t/p/w500/",
-  watchlistEndpoint: "http://localhost:8089/api/movie",
+  watchlistEndpoint: "http://localhost:49957/api/movie",
   searchlistEndpoint: "https://api.themoviedb.org/3/search/movie",
   movieDetailsEndpoint: "https://api.themoviedb.org/3/movie",
 };

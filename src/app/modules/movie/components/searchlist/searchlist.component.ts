@@ -27,7 +27,10 @@ export class SearchlistComponent implements OnInit {
     //Getting movies that are matching the movieName from the service
     this.movieService.getSearchlistMovies(this.movieName).subscribe(movies => {
       this.movies.push(...movies);
-    }, error => console.error("An Error has occured in searchlist component while getting movies.", error));
+    }, error => {
+      console.error("An Error has occured in searchlist component while getting movies.", error);
+      alert("some error occurred. PLease try after some time");
+    });
   }
 
 }

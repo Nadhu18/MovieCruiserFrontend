@@ -1,6 +1,6 @@
 .movie-container {
     margin: auto;
-    width: 90vw;
+    width: 100vw;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;

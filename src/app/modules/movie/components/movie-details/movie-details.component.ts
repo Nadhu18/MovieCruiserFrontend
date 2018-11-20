@@ -44,28 +44,47 @@ export class MovieDetailsComponent implements OnInit {
             }
           });
         }
-      }, error => console.error("An Error has occured in movie details component OnInit while getting watchlisted movies.", error));
+      }, error => {
+        console.error("An Error has occured in movie details component OnInit while getting watchlisted movies.", error);
+        alert("some error occurred. PLease try after some time");
+      });
     }
   }
 
   //Will call service to add the movie to watchlist by saving in database
   addMovieToWatchlist() {
-    this.movie.isWatchlisted = true;
     this.movieService.addMovieTowatchlist(this.movie).subscribe(() => {
+      this.movie.isWatchlisted = true;
+      this.movieService.getWatchListedMovies().subscribe(ms => {
+        if (ms && ms.length > 0) {
+          let usr = this.authServer.getUserId();
+          ms.forEach(mv => {
+            if (mv.movieId == this.movieID && mv.userId == usr) {
+              this.movie.id = mv.id;
+            }
+          });
+        }
+      });
       this.snackBar.open('Movie Added To Watchlist', '', {
         duration: 1000
       });
-    }, error => console.error("An Error has occured in movie details component while adding movie to watchlist.", error));
+    }, error => {
+      console.error("An Error has occured in movie details component while adding movie to watchlist", error);
+      alert("some error occurred. PLease try after some time");
+    });
   }
 
   //Will call service to remove the movie from database and watchlist
   deleteMovieFromWatchlist() {
-    this.movie.isWatchlisted = false;
     this.movieService.deleteMovieFromWatchlist(this.movie.id).subscribe(() => {
+      this.movie.isWatchlisted = false;
       this.snackBar.open('Movie removed from watchlist', '', {
         duration: 1000
       });
-    }, error => console.error("An Error has occured in movie details component while removing movie from the watchlist.", error));
+    }, error => {
+      console.error("An Error has occured in movie details component while removing movie from the watchlist.", error);
+      alert("some error occurred. PLease try after some time");
+    });
   }
 
   //Will call service to update the comment in the database
@@ -75,7 +94,10 @@ export class MovieDetailsComponent implements OnInit {
       this.snackBar.open('Comment Updated', '', {
         duration: 1000
       });
-    }, error => console.error("An Error has occured in movie details component while updating the movie comment.", error));
+    }, error => {
+      console.error("An Error has occured in movie details component while updating the movie comment.", error);
+      alert("some error occurred. PLease try after some time");
+    });
   }
 
 }

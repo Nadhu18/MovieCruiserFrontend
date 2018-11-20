@@ -86,7 +86,8 @@ export class MovieService {
 
   //returns the results from the response
   pickMovieResponse(response) {
-    return response['results'];
+    let result = response['results'] || response;
+    return result;
   }
 
   //method will add the movie to watchlist and saved to the database

@@ -1,2 +1,3 @@
 <!-- movies container module will take care of displaying the list of movies-->
-<movie-container [movies]="movies"></movie-container>
+<p *ngIf="!isWatchListEmpty()" id="emptyMessage">Your watchlist is empty. You can add your faviourate movies</p>
+<movie-container *ngIf=isWatchListEmpty() [movies]="movies"></movie-container>

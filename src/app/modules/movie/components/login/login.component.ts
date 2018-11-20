@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
         //triggered when login fails
         this.invalidCred = "*Invalid Credentials";
         console.error("An Error has occured while logging in.", error);
+        alert("some error occurred. PLease try after some time");
       });
     }
   }
@@ -49,23 +50,24 @@ export class LoginComponent implements OnInit {
   //triggers the registration functionality
   register() {
     //defines the error message if any field is empty
-    if(!this.rUserid || !this.rFirstName || !this.rLastName || !this.rPassword || !this.rConfirmPassword){
+    if (!this.rUserid || !this.rFirstName || !this.rLastName || !this.rPassword || !this.rConfirmPassword) {
       this.invalidReg = "*All fields are mandotory";
     }
     //defines error message if the passwords doesnot match
-    else if(this.rPassword != this.rConfirmPassword) {
+    else if (this.rPassword != this.rConfirmPassword) {
       this.invalidReg = "*Password doest not match";
     }
     else {
-    this.authService.register(this.rUserid, this.rPassword, this.rFirstName, this.rLastName).subscribe(() => {
-      this.invalidReg = "";
-      this.snackBar.open('User registered successfully', '', {
-        duration: 1000
+      this.authService.register(this.rUserid, this.rPassword, this.rFirstName, this.rLastName).subscribe(() => {
+        this.invalidReg = "";
+        this.snackBar.open('User registered successfully', '', {
+          duration: 1000
+        });
+      }, error => {
+        console.error("An Error has occured while registering the user.", error);
+        alert("some error occurred. PLease try after some time");
       });
-    }, error => {
-      console.error("An Error has occured while registering the user.", error);
-  });
-  }
+    }
   }
 
 }
